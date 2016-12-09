@@ -1,0 +1,54 @@
+{
+  "version": "v4",
+  "repo": "borisyankov/DefinitelyTyped",
+  "ref": "master",
+  "path": "typings",
+  "bundle": "typings/tsd.d.ts",
+  "installed": {
+    "serve-static/serve-static.d.ts": {
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
+    },
+    "express/express.d.ts": {
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
+    },
+    "mime/mime.d.ts": {
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
+    },
+    "express-serve-static-core/express-serve-static-core.d.ts": {
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
+    },
+    "node/node.d.ts": {
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
+    },
+    "express-session/express-session.d.ts": {
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
+    },
+    "validator/validator.d.ts": {
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
+    },
+    "sequelize/sequelize.d.ts": {
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
+    },
+    "bluebird/bluebird-2.0.d.ts": {
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
+    },
+    "lodash/lodash.d.ts": {
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
+    },
+    "body-parser/body-parser.d.ts": {
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
+    },
+    "socket.io/socket.io.d.ts": {
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
+    },
+    "multer/multer.d.ts": {
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
+    },
+    "angularjs/angular.d.ts": {
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
+    },
+    "jquery/jquery.d.ts": {
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
+    }
+  }
+}

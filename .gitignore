@@ -1,0 +1,17 @@
+﻿node_modules
+Obj
+env.json
+.vs
+.user
+*.js.map
+engine/*.js.map
+models/*.js.map
+controllers/*.js.map
+routes/*.js.map
+public/scripts/Config.js
+public/scripts/Config.ts
+public/scripts/*.js.map
+public/scripts/engine/*.js.map
+public/scripts/controllers/*.js.map
+profiles
+galleries
