@@ -1,0 +1,39 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading" id="accordion">
+                    Express Chat - Login
+                </div>
+                <div class="panel">
+                    <div class="panel-body">
+                        <form class="form">
+                            <div class="form-group" ng-if="ctrl.formType == 'register'">
+                                <label for="display_name">Display Name</label>
+                                <input type="text" ng-model="ctrl.user.name" class="form-control" id="display_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="user_name">User Name</label>
+                                <input type="text" ng-model="ctrl.user.userName" class="form-control" id="user_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" ng-model="ctrl.user.password" class="form-control" id="password">
+                            </div>
+                            <div class="form-group" ng-if="ctrl.formType == 'register'">
+                                <label for="user_name">Email</label>
+                                <input type="email" ng-model="ctrl.user.email" class="form-control" id="email">
+                            </div>
+                            <div class="form-group" ng-if="ctrl.formType == 'register'">
+                                <label for="profile_pic">Profile Picture</label>
+                                <input type="file" file-model="file" class="form-control" id="profile_pic">
+                            </div>
+                            <button type="submit" class="btn btn-primary" ng-if="ctrl.formType == 'login'">Login</button>
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

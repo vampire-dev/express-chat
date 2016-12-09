@@ -4,6 +4,7 @@ class BaseController {
         this.sequelize = global['sequelize'];
         this.models = global['models'];
         this.model = this.models[modelName];
+        this.includes = [];
     }
     find(id) {
         return this.model.findById(id);

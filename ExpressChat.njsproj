@@ -46,6 +46,25 @@
   <ItemGroup>
     <Content Include="env.json.example" />
     <Content Include="env.json" />
+    <Content Include="public\css\app.css" />
+    <Content Include="public\css\bootstrap.css" />
+    <Content Include="public\css\font-awesome.css" />
+    <Content Include="public\fonts\emoticons.eot" />
+    <Content Include="public\fonts\emoticons.svg" />
+    <Content Include="public\fonts\emoticons.ttf" />
+    <Content Include="public\fonts\emoticons.woff" />
+    <Content Include="public\fonts\fontawesome-webfont.eot" />
+    <Content Include="public\fonts\fontawesome-webfont.svg" />
+    <Content Include="public\fonts\fontawesome-webfont.ttf" />
+    <Content Include="public\fonts\fontawesome-webfont.woff" />
+    <Content Include="public\fonts\FontAwesome.otf" />
+    <Content Include="public\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="public\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="public\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="public\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="public\views\main.html" />
+    <Content Include="public\views\login.html" />
+    <Content Include="public\views\index.html" />
     <Content Include="tsd.json" />
     <TypeScriptCompile Include="app.ts" />
     <Content Include=".gitignore" />
@@ -60,6 +79,8 @@
     <TypeScriptCompile Include="controllers\PrivateRoomController.ts" />
     <TypeScriptCompile Include="controllers\ProfileController.ts" />
     <TypeScriptCompile Include="controllers\UserController.ts" />
+    <TypeScriptCompile Include="engine\ChatEngine.ts" />
+    <TypeScriptCompile Include="engine\Instance.ts" />
     <TypeScriptCompile Include="models\BaseModel.ts" />
     <TypeScriptCompile Include="models\Configurator.ts" />
     <TypeScriptCompile Include="models\Message.ts" />
@@ -70,6 +91,20 @@
     <TypeScriptCompile Include="models\Notification.ts" />
     <TypeScriptCompile Include="models\PrivateRoom.ts" />
     <TypeScriptCompile Include="models\User.ts" />
+    <TypeScriptCompile Include="public\scripts\controllers\LoginCtrl.ts" />
+    <TypeScriptCompile Include="public\scripts\controllers\IndexCtrl.ts" />
+    <TypeScriptCompile Include="public\scripts\ExpressChat.ts" />
+    <TypeScriptCompile Include="public\scripts\Instance.ts" />
+    <TypeScriptCompile Include="public\scripts\models\Request.ts" />
+    <TypeScriptCompile Include="public\scripts\models\Message.ts" />
+    <TypeScriptCompile Include="public\scripts\models\Notification.ts" />
+    <TypeScriptCompile Include="public\scripts\models\GroupRoom.ts" />
+    <TypeScriptCompile Include="public\scripts\models\Group.ts" />
+    <TypeScriptCompile Include="public\scripts\models\PrivateRoom.ts" />
+    <TypeScriptCompile Include="public\scripts\models\Profile.ts" />
+    <TypeScriptCompile Include="public\scripts\models\User.ts" />
+    <TypeScriptCompile Include="public\scripts\Services.ts" />
+    <TypeScriptCompile Include="public\scripts\SocketIO.ts" />
     <TypeScriptCompile Include="typings\angularjs\angular.d.ts" />
     <TypeScriptCompile Include="typings\bluebird\bluebird-2.0.d.ts" />
     <TypeScriptCompile Include="typings\body-parser\body-parser.d.ts" />
@@ -85,6 +120,7 @@
     <TypeScriptCompile Include="typings\serve-static\serve-static.d.ts" />
     <TypeScriptCompile Include="typings\socket.io\socket.io.d.ts" />
     <TypeScriptCompile Include="typings\tsd.d.ts" />
+    <TypeScriptCompile Include="typings\uuid\UUID.d.ts" />
     <TypeScriptCompile Include="typings\validator\validator.d.ts" />
     <TypeScriptCompile Include="utils\auth.ts" />
     <TypeScriptCompile Include="utils\env.ts" />
@@ -94,9 +130,18 @@
     <Folder Include="models\" />
     <Folder Include="controllers\" />
     <Folder Include="engine\" />
+    <Folder Include="public\" />
+    <Folder Include="public\css\" />
+    <Folder Include="public\fonts\" />
+    <Folder Include="public\js\" />
+    <Folder Include="public\scripts\" />
+    <Folder Include="public\scripts\models\" />
+    <Folder Include="public\scripts\controllers\" />
+    <Folder Include="public\views\" />
     <Folder Include="stored\" />
     <Folder Include="stored\galleries\" />
     <Folder Include="stored\profiles\" />
+    <Folder Include="typings\uuid\" />
     <Folder Include="utils\" />
     <Folder Include="typings\" />
     <Folder Include="typings\angularjs\" />
@@ -114,6 +159,18 @@
     <Folder Include="typings\serve-static\" />
     <Folder Include="typings\socket.io\" />
     <Folder Include="typings\validator\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="public\js\angular-sanitize.min.js" />
+    <Compile Include="public\js\angular-ui-notification.min.js" />
+    <Compile Include="public\js\angular-ui-router.min.js" />
+    <Compile Include="public\js\angular.min.js" />
+    <Compile Include="public\js\bootstrap.js" />
+    <Compile Include="public\js\highlight.min.js" />
+    <Compile Include="public\js\jquery-1.10.2.js" />
+    <Compile Include="public\js\loading-bar.js" />
+    <Compile Include="public\js\ng-emoticons.min.js" />
+    <Compile Include="public\js\socket.io.min.js" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />

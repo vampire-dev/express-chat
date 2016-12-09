@@ -12,6 +12,7 @@ export default class BaseController<T>{
         this.sequelize = global['sequelize'];
         this.models = global['models'];
         this.model = this.models[modelName];
+        this.includes = [];
     }
 
     find(id: number): Promise<Instance<T>> {
