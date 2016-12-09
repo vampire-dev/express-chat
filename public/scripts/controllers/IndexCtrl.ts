@@ -28,6 +28,13 @@
         request(): void {
             this.instance.socket.emit('request', this.instance.foundProfile.id);
         }
+
+        logout() {
+            Services.User.Logout();
+            this.principal.authenticate(null);
+            this.instance.socket.emit('disconnect', null);
+            this.$state.go('site.login');
+        }
     }
 
     expressChat.controller('IndexCtrl', IndexCtrl);
