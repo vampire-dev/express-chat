@@ -1,7 +1,7 @@
 "use strict";
 const crypto = require('crypto');
 const BaseController_1 = require('./BaseController');
-const uuid = require('uuid/v1');
+const uuidV1 = require('uuid/v1');
 class UserController extends BaseController_1.default {
     constructor() {
         super('User');
@@ -18,11 +18,10 @@ class UserController extends BaseController_1.default {
                     var profileData = {
                         "id": null,
                         "name": data.name,
-                        "profilePath": '/postbox/profiles/' + user.userName + '/' + user.userName + '.jpg',
-                        "galleryPath": '/postbox/galleries/' + user.userName + '/' + user.userName + '.jpg',
+                        "profilePath": '/chat-express/profiles/' + user.userName + '/' + user.userName + '.jpg',
                         "email": data.email,
                         "userId": user.id,
-                        "room": uuid.v1()
+                        "room": uuidV1()
                     };
                     return this.models.Profile.insertOrUpdate(profileData, { validate: true, transaction: t });
                 });

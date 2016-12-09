@@ -5,7 +5,7 @@
         'ngSanitize', 'ngEmoticons']);
 
     export var chatSocketURL = 'http://localhost:6005';
-    export var root: string = '/postbox';
+    export var root: string = '/express-chat';
     export var service: string = root + '/ws/';
     export var http: ng.IHttpService;
 

@@ -5,7 +5,7 @@ var ExpressChat;
         'ui-notification',
         'ngSanitize', 'ngEmoticons']);
     ExpressChat.chatSocketURL = 'http://localhost:6005';
-    ExpressChat.root = '/postbox';
+    ExpressChat.root = '/express-chat';
     ExpressChat.service = ExpressChat.root + '/ws/';
     var principal = ($q, $http, $timeout) => {
         var _identity = undefined;

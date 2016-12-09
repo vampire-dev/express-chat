@@ -2,7 +2,7 @@
 import * as crypto from 'crypto';
 import BaseController from './BaseController';
 import {IUser} from '../models/User';
-const uuid = require('uuid/v1');
+const uuidV1 = require('uuid/v1');
 
 class UserController extends BaseController<IUser>{
     constructor() {
@@ -22,11 +22,10 @@ class UserController extends BaseController<IUser>{
                     var profileData = {
                         "id": null,
                         "name": data.name,
-                        "profilePath": '/postbox/profiles/' + user.userName + '/' + user.userName + '.jpg',
-                        "galleryPath": '/postbox/galleries/' + user.userName + '/' + user.userName + '.jpg',
+                        "profilePath": '/chat-express/profiles/' + user.userName + '/' + user.userName + '.jpg',
                         "email": data.email,
                         "userId": user.id,
-                        "room": uuid.v1()
+                        "room": uuidV1()
                     };
                     return this.models.Profile.insertOrUpdate(profileData, { validate: true, transaction: t });
                 });

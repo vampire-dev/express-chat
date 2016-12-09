@@ -4,7 +4,7 @@ const fs = require('fs');
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
         var type = req.query.type;
-        var dir = type === 'profile' ? './stored/profiles/' : './galleries/';
+        var dir = type === 'profile' ? './stored/profiles/' : './stored/galleries/';
         if (req.query.folder)
             dir += req.query.folder + '/';
         if (!fs.existsSync(dir))

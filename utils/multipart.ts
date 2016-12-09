@@ -5,7 +5,7 @@ import * as fs from 'fs';
 var storage = multer.diskStorage({
     destination: (req: express.Request, file: any, cb: Function) => {
         var type = req.query.type;
-        var dir = type === 'profile' ? './stored/profiles/' : './galleries/';
+        var dir = type === 'profile' ? './stored/profiles/' : './stored/galleries/';
 
         if (req.query.folder)
             dir += req.query.folder + '/';
