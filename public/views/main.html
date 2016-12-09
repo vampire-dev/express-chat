@@ -3,7 +3,10 @@
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading" id="accordion">
-                    Express Chat - {{ctrl.instance.profile.name}} ({{ctrl.instance.profile.status}})
+                    Express Chat - {{ctrl.instance.profile.name}} ({{ctrl.instance.profile.status}}) 
+                    <a href="#" class="btn btn-primary btn-xs pull-right" ng-click="ctrl.logout()">
+                        <i class="fa fa-power-off"></i> Logout
+                    </a>
                 </div>
                 <div class="panel-heading" id="accordion">
                     <div class="input-group">
@@ -15,19 +18,13 @@
                         </span>
                     </div>
                 </div>
-
                 <div class="panel-heading" id="accordion">
-                    <div class="btn-group pull-right">
-                        <a href="#" class="btn btn-primary btn-xs" ng-click="ctrl.logout()">
-                            <i class="fa fa-power-off"></i> Logout
-                        </a>
-                    </div>
-                    <div class="btn-group pull-right">
+                    <div class="btn-group">
                         <a href="#" class="btn btn-primary btn-xs" ng-click="ctrl.changeType('room')">
                             <i class="fa fa-weixin"></i> Messages
                         </a>
                     </div>
-                    <div class="btn-group pull-right">
+                    <div class="btn-group">
                         <a href="#" class="btn btn-primary btn-xs" ng-click="ctrl.changeType('notification')">
                             <i class="fa fa-comments"></i> Notifications {{ctrl.instance.notifications.length}}
                         </a>
