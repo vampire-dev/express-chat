@@ -1,2 +1,2 @@
-console.log('Hello world');
+"use strict";
 //# sourceMappingURL=app.js.map
