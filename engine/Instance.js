@@ -48,6 +48,16 @@ class Instance {
             this.socket.emit('log error', exception.message);
         });
     }
+    setRoom(profileId) {
+        ProfileController_1.default.find(profileId).then(res => {
+            if (!res) {
+                this.socket.emit('log error', 'Profile is not found');
+                return;
+            }
+            this.recipient = res.toJSON();
+            this.socket.emit('get recipient', this.recipient);
+        });
+    }
     request(confirmerId, confirmerInstance) {
         var data = {
             id: null,

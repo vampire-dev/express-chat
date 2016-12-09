@@ -40,6 +40,10 @@ class ChatEngine {
                 instance.request(confirmerId, confirmerInstance);
             });
 
+            instance.socket.on('set room', (recipientId: number) => {
+                instance.setRoom(recipientId);
+            });
+
             instance.socket.on('confirm', (data: any) => {
                 var requesterId = data.requesterId;
                 var notificationId = data.notificationId;

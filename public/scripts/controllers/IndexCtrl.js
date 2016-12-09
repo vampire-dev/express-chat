@@ -31,6 +31,10 @@ var ExpressChat;
             deleteNotification(notificationId) {
                 this.instance.socket.emit('delete notification', notificationId);
             }
+            setRoom(profileId) {
+                this.viewType = 'chat';
+                this.instance.socket.emit('set recipient', profileId);
+            }
             logout() {
                 ExpressChat.Services.User.Logout();
                 this.principal.authenticate(null);

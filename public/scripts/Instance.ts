@@ -5,6 +5,7 @@
         socket: Socket;
         profile: Models.IProfile;
         foundProfile: Models.IProfile;
+        recipient: Models.IProfile;
         rooms: Models.IPrivateRoom[];
         requests: Models.IRequest[];
         pendings: Models.IRequest[];
@@ -44,6 +45,12 @@
             this.socket.on('get search profile', (profile: any) => {
                 $scope.$apply(() => {
                     this.foundProfile = new Models.Profile(profile);
+                });
+            });
+
+            this.socket.on('get recipient', (profile: any) => {
+                $scope.$apply(() => {
+                    this.recipient = new Models.Profile(profile);
                 });
             });
 

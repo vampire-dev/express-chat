@@ -38,6 +38,11 @@
             this.instance.socket.emit('delete notification', notificationId);
         }
 
+        setRoom(profileId: number): void {
+            this.viewType = 'chat';
+            this.instance.socket.emit('set recipient', profileId);
+        }
+
         logout() {
             Services.User.Logout();
             this.principal.authenticate(null);

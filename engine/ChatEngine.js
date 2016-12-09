@@ -29,6 +29,9 @@ class ChatEngine {
                 var confirmerInstance = this.instances[confirmerId];
                 instance.request(confirmerId, confirmerInstance);
             });
+            instance.socket.on('set room', (recipientId) => {
+                instance.setRoom(recipientId);
+            });
             instance.socket.on('confirm', (data) => {
                 var requesterId = data.requesterId;
                 var notificationId = data.notificationId;

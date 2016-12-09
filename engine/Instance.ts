@@ -11,6 +11,7 @@ export default class Instance {
     socket: SocketIO.Socket;
     userId: number;
     profile: Profile.IProfile;
+    recipient: Profile.IProfile;
     rooms: PrivateRoom.IPrivateRoom[];
     requests: Request.IRequest[];
     pendings: Request.IRequest[];
@@ -63,6 +64,18 @@ export default class Instance {
             this.socket.emit('get search profile', res.toJSON());
         }).catch(exception => {
             this.socket.emit('log error', exception.message);
+        });
+    }
+
+    setRoom(profileId: number): void {
+        ProfileController.find(profileId).then(res => {
+            if (!res) {
+                this.socket.emit('log error', 'Profile is not found');
+                return;
+            }
+
+            this.recipient = res.toJSON();
+            this.socket.emit('get recipient', this.recipient);
         });
     }
 

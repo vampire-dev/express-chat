@@ -31,6 +31,11 @@ var ExpressChat;
                     this.foundProfile = new ExpressChat.Models.Profile(profile);
                 });
             });
+            this.socket.on('get recipient', (profile) => {
+                $scope.$apply(() => {
+                    this.recipient = new ExpressChat.Models.Profile(profile);
+                });
+            });
             this.socket.on('notify', (notification) => {
                 $scope.$apply(() => {
                     notifier.success('You got new notification');
