@@ -33,6 +33,12 @@ class ChatEngine {
                 var requesterInstance = this.instances[requesterId];
                 instance.confirm(requesterId, requesterInstance);
             });
+            instance.socket.on('disconnect', () => {
+                if (!instance.userId)
+                    return;
+                this.instances[instance.userId] = null;
+                delete this.instances[instance.userId];
+            });
         });
     }
 }

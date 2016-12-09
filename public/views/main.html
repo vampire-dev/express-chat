@@ -118,13 +118,14 @@
                                     </div>
                                     <p>
                                        {{notification.text}} 
-                                       <button class="btn btn-primary btn-xs" ng-if="notification.type == 'request'">
-                                           <i class="fa fa-check"></i> Accept
-                                       </button>
-                                        <button class="btn btn-primary btn-xs" ng-if="notification.type == 'request'">
-                                            <i class="fa fa-remove"></i> Reject
-                                        </button>
+                                      
                                     </p>
+                                    <button class="btn btn-primary btn-xs" ng-if="notification.type == 'request'">
+                                        <i class="fa fa-check"></i> Accept
+                                    </button>
+                                    <button class="btn btn-primary btn-xs" ng-if="notification.type == 'request'">
+                                        <i class="fa fa-remove"></i> Reject
+                                    </button>
                                 </div>
                             </li>
                         </ul>

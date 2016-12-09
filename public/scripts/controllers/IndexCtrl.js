@@ -24,6 +24,12 @@ var ExpressChat;
             request() {
                 this.instance.socket.emit('request', this.instance.foundProfile.id);
             }
+            logout() {
+                ExpressChat.Services.User.Logout();
+                this.principal.authenticate(null);
+                this.instance.socket.emit('disconnect', null);
+                this.$state.go('site.login');
+            }
         }
         IndexCtrl.$inject = ['$scope', '$state', 'principal', 'fileUpload', 'Notification'];
         ExpressChat.expressChat.controller('IndexCtrl', IndexCtrl);
