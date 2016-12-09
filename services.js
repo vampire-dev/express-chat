@@ -1,6 +1,7 @@
 "use strict";
 const express = require('express');
 const UserController_1 = require('./controllers/UserController');
+const ProfileController_1 = require('./controllers/ProfileController');
 const auth_1 = require('./utils/auth');
 const env_1 = require('./utils/env');
 const multipart_1 = require('./utils/multipart');
@@ -32,6 +33,11 @@ router.get(url + 'user/getIdentity', auth_1.default, (req, res) => {
 });
 router.get(url + 'user/logout', auth_1.default, (req, res) => {
     req.session.destroy((err) => {
+        res.status(200).send('OK');
+    });
+});
+router.post(url + 'profile/save', auth_1.default, (req, res) => {
+    ProfileController_1.default.save(req.body).then(result => {
         res.status(200).send('OK');
     });
 });

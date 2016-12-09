@@ -8,6 +8,7 @@ var ExpressChat;
                 this.$state = $state;
                 this.principal = principal;
                 this.fileUpload = fileUpload;
+                this.Notification = Notification;
                 $scope.options = {
                     link: true,
                     linkTarget: '_blank',
@@ -55,11 +56,30 @@ var ExpressChat;
             sendMessage() {
                 this.instance.socket.emit('send message', { "chatMessage": this.chatMessage, "receiverId": this.instance.recipient.id });
                 this.chatMessage = null;
+                var chatArea = $('#chat_area');
+                chatArea.animate({ scrollTop: chatArea.prop('scrollHeight') }, 300);
             }
             changeType(type) {
                 this.viewType = type;
                 this.instance.recipient = null;
                 this.instance.socket.emit('clear room', null);
+                if (type === 'profile') {
+                    this.newDisplayName = this.instance.profile.name;
+                    this.newStatus = this.instance.profile.status;
+                }
+            }
+            updateProfile() {
+                var data = this.instance.profile;
+                data.name = this.newDisplayName;
+                data.status = this.newStatus;
+                ExpressChat.Services.User.UpdateProfile(data).then(res => {
+                    var url = ExpressChat.service + 'user/ProfileUpload?type=profile&folder=' + this.$scope.identity.userName;
+                    this.fileUpload.uploadFileToUrl(this.file, url);
+                }).catch(exception => {
+                    this.Notification.error(exception.message);
+                }).finally(() => {
+                    window.location.href = ExpressChat.root;
+                });
             }
             logout() {
                 ExpressChat.Services.User.Logout();

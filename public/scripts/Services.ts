@@ -19,5 +19,9 @@
         static Logout() {
             return http.get(service + 'user/logout');
         }
+
+        static UpdateProfile(data: any) {
+            return http.post(service + 'profile/save', JSON.stringify(data));
+        }
     }
 }

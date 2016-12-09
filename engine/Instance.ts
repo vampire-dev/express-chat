@@ -37,6 +37,18 @@ export default class Instance {
         });
     }
 
+    setProfile(): void {
+        ProfileController.findByUserId(this.userId).then(res => {
+            if (!res) {
+                this.socket.emit('log error', 'Profile is not found');
+                return;
+            }
+
+            this.profile = res.toJSON();
+            this.socket.emit('get profile', this.profile);
+        });
+    }
+
     setRooms(): void {
         PrivateRoomController.findByRoom(this.profile.room).then(res => {
             this.rooms = res.map(e => e.toJSON());
@@ -134,7 +146,7 @@ export default class Instance {
                 type: 'confirm'
             }
 
-            this.saveNotification(notification);
+            this.saveNotification(notification, this);
 
             if (requesterInstance) {
                 requesterInstance.socket.emit('notify', null);
@@ -165,11 +177,11 @@ export default class Instance {
         }
 
         if (!receiverInstance)
-            receiverInstance.saveNotification(notification);
+            this.saveNotification(notification, this);
 
         else if (receiverInstance) {
             if (!receiverInstance.recipient || receiverInstance.recipient.id !== this.profile.id) {
-                receiverInstance.saveNotification(notification);
+                receiverInstance.saveNotification(notification, receiverInstance);
                 receiverInstance.socket.emit('notify', null);
             }
         }
@@ -180,9 +192,9 @@ export default class Instance {
         });
     }
 
-    saveNotification(data: any): void {
+    saveNotification(data: any, instance: Instance): void {
         NotificationController.save(data).then(res => {
-            this.setNotifications();
+            instance.setNotifications();
         });
     }
 

@@ -18,6 +18,9 @@ var ExpressChat;
             static Logout() {
                 return ExpressChat.http.get(ExpressChat.service + 'user/logout');
             }
+            static UpdateProfile(data) {
+                return ExpressChat.http.post(ExpressChat.service + 'profile/save', JSON.stringify(data));
+            }
         }
         Services.User = User;
     })(Services = ExpressChat.Services || (ExpressChat.Services = {}));

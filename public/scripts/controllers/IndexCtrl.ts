@@ -4,10 +4,13 @@
         viewType: string;
         userNameQuery: string;
         chatMessage: string;
+        newStatus: string;
+        newDisplayName: string;
+        file: any;
 
         static $inject = ['$scope', '$state', 'principal', 'fileUpload', 'Notification'];
 
-        constructor(public $scope, public $state, public principal, public fileUpload, Notification) {
+        constructor(public $scope, public $state, public principal, public fileUpload, public Notification) {
             $scope.options = {
                 link: true,
                 linkTarget: '_blank',
@@ -65,12 +68,35 @@
         sendMessage(): void {
             this.instance.socket.emit('send message', { "chatMessage": this.chatMessage, "receiverId": this.instance.recipient.id });
             this.chatMessage = null;
+
+            var chatArea = $('#chat_area');
+            chatArea.animate({ scrollTop: chatArea.prop('scrollHeight') }, 300);
         }
 
         changeType(type: string): void {
             this.viewType = type;
             this.instance.recipient = null;
             this.instance.socket.emit('clear room', null);
+
+            if (type === 'profile') {
+                this.newDisplayName = this.instance.profile.name;
+                this.newStatus = this.instance.profile.status;
+            }
+        }
+
+        updateProfile(): void {
+            var data = this.instance.profile;
+            data.name = this.newDisplayName;
+            data.status = this.newStatus;
+
+            Services.User.UpdateProfile(data).then(res => {
+                var url = service + 'user/ProfileUpload?type=profile&folder=' + this.$scope.identity.userName;
+                this.fileUpload.uploadFileToUrl(this.file, url);
+            }).catch(exception => {
+                this.Notification.error(exception.message);
+            }).finally(() => {
+                window.location.href = root;
+            });
         }
 
         logout() {

@@ -21,6 +21,16 @@ class Instance {
             this.setNotifications();
         });
     }
+    setProfile() {
+        ProfileController_1.default.findByUserId(this.userId).then(res => {
+            if (!res) {
+                this.socket.emit('log error', 'Profile is not found');
+                return;
+            }
+            this.profile = res.toJSON();
+            this.socket.emit('get profile', this.profile);
+        });
+    }
     setRooms() {
         PrivateRoomController_1.default.findByRoom(this.profile.room).then(res => {
             this.rooms = res.map(e => e.toJSON());
@@ -105,7 +115,7 @@ class Instance {
                 text: 'Your request has been approved by ' + this.profile.name,
                 type: 'confirm'
             };
-            this.saveNotification(notification);
+            this.saveNotification(notification, this);
             if (requesterInstance) {
                 requesterInstance.socket.emit('notify', null);
                 requesterInstance.setRooms();
@@ -131,10 +141,10 @@ class Instance {
             type: 'message'
         };
         if (!receiverInstance)
-            receiverInstance.saveNotification(notification);
+            this.saveNotification(notification, this);
         else if (receiverInstance) {
             if (!receiverInstance.recipient || receiverInstance.recipient.id !== this.profile.id) {
-                receiverInstance.saveNotification(notification);
+                receiverInstance.saveNotification(notification, receiverInstance);
                 receiverInstance.socket.emit('notify', null);
             }
         }
@@ -143,9 +153,9 @@ class Instance {
             receiverInstance.setMessages();
         });
     }
-    saveNotification(data) {
+    saveNotification(data, instance) {
         NotificationController_1.default.save(data).then(res => {
-            this.setNotifications();
+            instance.setNotifications();
         });
     }
     deleteNotification(notificationId) {

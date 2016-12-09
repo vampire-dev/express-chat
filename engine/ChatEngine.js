@@ -22,6 +22,9 @@ class ChatEngine {
                     this.instances[userId] = instance;
                 instance.initialize();
             });
+            instance.socket.on('set profile', () => {
+                instance.setProfile();
+            });
             instance.socket.on('search profile', (userName) => {
                 instance.searchProfile(userName);
             });

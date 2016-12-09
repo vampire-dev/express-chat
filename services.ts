@@ -1,5 +1,6 @@
 ﻿import * as express from 'express';
 import Controller from './controllers/UserController';
+import ProfileController from './controllers/ProfileController';
 import auth from './utils/auth';
 import env from './utils/env';
 import multipart from './utils/multipart';
@@ -38,6 +39,12 @@ router.get(url + 'user/getIdentity', auth, (req, res) => {
 
 router.get(url + 'user/logout', auth, (req, res) => {
     req.session.destroy((err) => {
+        res.status(200).send('OK');
+    });
+});
+
+router.post(url + 'profile/save', auth, (req, res) => {
+    ProfileController.save(req.body).then(result => {
         res.status(200).send('OK');
     });
 });
