@@ -56,8 +56,7 @@ var ExpressChat;
             sendMessage() {
                 this.instance.socket.emit('send message', { "chatMessage": this.chatMessage, "receiverId": this.instance.recipient.id });
                 this.chatMessage = null;
-                var chatArea = $('#chat_area');
-                chatArea.animate({ scrollTop: chatArea.prop('scrollHeight') }, 300);
+                this.instance.autoScroll();
             }
             changeType(type) {
                 this.viewType = type;

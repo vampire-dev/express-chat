@@ -50,6 +50,8 @@
                     messages.forEach(message => {
                         this.messages.push(new Models.Message(message));
                     });
+
+                    this.autoScroll();
                 });
             });
 
@@ -70,6 +72,11 @@
                     notifier.success('You got new notification');
                 });
             });
+        }
+
+        autoScroll(): void {
+            var chatArea = $('#chat_area');
+            chatArea.animate({ scrollTop: chatArea.prop('scrollHeight') }, 300);
         }
     }
 }

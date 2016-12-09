@@ -32,6 +32,7 @@ var ExpressChat;
                     messages.forEach(message => {
                         this.messages.push(new ExpressChat.Models.Message(message));
                     });
+                    this.autoScroll();
                 });
             });
             this.socket.on('get search profile', (profile) => {
@@ -49,6 +50,10 @@ var ExpressChat;
                     notifier.success('You got new notification');
                 });
             });
+        }
+        autoScroll() {
+            var chatArea = $('#chat_area');
+            chatArea.animate({ scrollTop: chatArea.prop('scrollHeight') }, 300);
         }
     }
     ExpressChat.Instance = Instance;
