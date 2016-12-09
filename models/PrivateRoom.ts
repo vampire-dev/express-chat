@@ -4,6 +4,7 @@ import {Instance} from './BaseModel';
 export interface IPrivateRoom {
     id: number;
     profileId: number;
+    profile?: any;
     room: string;
 }
 

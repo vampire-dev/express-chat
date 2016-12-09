@@ -2,6 +2,7 @@
 const ProfileController_1 = require('../controllers/ProfileController');
 const PrivateRoomController_1 = require('../controllers/PrivateRoomController');
 const RequestController_1 = require('../controllers/RequestController');
+const NotificationController_1 = require('../controllers/NotificationController');
 class Instance {
     constructor(socket) {
         this.socket = socket;
@@ -16,7 +17,7 @@ class Instance {
             this.socket.emit('get profile', this.profile);
             this.setRooms();
             this.setRequests();
-            this.setPendings();
+            this.setNotifications();
         });
     }
     setRooms() {
@@ -35,12 +36,9 @@ class Instance {
             this.socket.emit('log error', exception.message);
         });
     }
-    setPendings() {
-        RequestController_1.default.findPendings(this.profile.id).then(res => {
-            this.requests = res.map(e => e.toJSON());
-            this.socket.emit('get pendings', this.requests);
-        }).catch(exception => {
-            this.socket.emit('log error', exception.message);
+    setNotifications() {
+        NotificationController_1.default.findAll({ "profile": this.profile.id }).then(res => {
+            this.socket.emit('get notifications', res.map(e => e.toJSON()));
         });
     }
     searchProfile(userName) {
@@ -61,8 +59,21 @@ class Instance {
         };
         RequestController_1.default.request(data).then(res => {
             this.setRequests();
-            if (confirmerInstance)
-                confirmerInstance.setPendings();
+            if (confirmerInstance) {
+                var notification = {
+                    id: null,
+                    profileId: confirmerId,
+                    fromId: this.profile.id,
+                    date: new Date(),
+                    status: 'unread',
+                    text: 'You have a friend request from ' + this.profile.name,
+                    type: 'request'
+                };
+                NotificationController_1.default.save(notification).then(result => {
+                    confirmerInstance.socket.emit('notify', notification);
+                    confirmerInstance.setNotifications();
+                });
+            }
             this.setRequests();
         });
     }

@@ -4,7 +4,9 @@ import {Instance} from './BaseModel';
 export interface IGroupRoom {
     id: number;
     groupId: number;
+    group?: any;
     profileId: number;
+    profile?: any;
 }
 
 export var attributes: sequelize.DefineAttributes = {

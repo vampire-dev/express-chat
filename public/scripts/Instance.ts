@@ -6,10 +6,14 @@
         profile: Models.IProfile;
         foundProfile: Models.IProfile;
         rooms: Models.IPrivateRoom[];
+        requests: Models.IRequest[];
+        pendings: Models.IRequest[];
+        notifications: Models.INotification[];
 
-        constructor($scope: any, userId: number, url: string) {
+        constructor($scope: any, userId: number, url: string, notifier: any) {
             this.socket = io.connect(url);
             this.socket.emit('initialize', userId);
+            this.notifications = [];
 
             this.socket.on('get profile', (profile: any) => {
                 $scope.$apply(() => {
@@ -27,9 +31,25 @@
                 });
             });
 
+            this.socket.on('get notifications', (notifications: any[]) => {
+                $scope.$apply(() => {
+                    this.notifications = [];
+
+                    notifications.forEach(notification => {
+                        this.notifications.push(new Models.Notification(notification));
+                    });
+                });
+            });
+
             this.socket.on('get search profile', (profile: any) => {
                 $scope.$apply(() => {
                     this.foundProfile = new Models.Profile(profile);
+                });
+            });
+
+            this.socket.on('notify', (notification: any) => {
+                $scope.$apply(() => {
+                    notifier.success('You got new notification');
                 });
             });
         }

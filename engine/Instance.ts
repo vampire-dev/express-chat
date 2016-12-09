@@ -4,6 +4,8 @@ import * as PrivateRoom from '../models/PrivateRoom';
 import PrivateRoomController from '../controllers/PrivateRoomController';
 import * as Request from '../models/Request';
 import RequestController from '../controllers/RequestController';
+import * as Notification from '../models/Notification';
+import NotificationController from '../controllers/NotificationController';
 
 export default class Instance {
     socket: SocketIO.Socket;
@@ -28,7 +30,7 @@ export default class Instance {
             this.socket.emit('get profile', this.profile);
             this.setRooms();
             this.setRequests();
-            this.setPendings();
+            this.setNotifications();
         });
     }
 
@@ -50,12 +52,9 @@ export default class Instance {
         });
     }
 
-    setPendings(): void {
-        RequestController.findPendings(this.profile.id).then(res => {
-            this.requests = res.map(e => e.toJSON());
-            this.socket.emit('get pendings', this.requests);
-        }).catch(exception => {
-            this.socket.emit('log error', exception.message);
+    setNotifications(): void {
+        NotificationController.findAll({ "profile": this.profile.id }).then(res => {
+            this.socket.emit('get notifications', res.map(e => e.toJSON()));
         });
     }
 
@@ -80,8 +79,22 @@ export default class Instance {
         RequestController.request(data).then(res => {
             this.setRequests();
 
-            if (confirmerInstance)
-                confirmerInstance.setPendings();
+            if (confirmerInstance) {
+                var notification: Notification.INotification = {
+                    id: null,
+                    profileId: confirmerId,
+                    fromId: this.profile.id,
+                    date: new Date(),
+                    status: 'unread',
+                    text: 'You have a friend request from ' + this.profile.name,
+                    type: 'request'
+                }
+
+                NotificationController.save(notification).then(result => {
+                    confirmerInstance.socket.emit('notify', notification);
+                    confirmerInstance.setNotifications();
+                });
+            }
 
             this.setRequests();
         });

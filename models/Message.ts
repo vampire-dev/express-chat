@@ -4,7 +4,9 @@ import {Instance} from './BaseModel';
 export interface IMessage {
     id: number;
     senderId: number;
+    sender?: any;
     receiverId: number;
+    receiver?: any;
     date: Date;
     text: string;
     status: string;

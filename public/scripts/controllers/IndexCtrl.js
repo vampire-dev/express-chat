@@ -11,7 +11,7 @@ var ExpressChat;
                 this.viewType = 'room';
                 principal.identity().then((identity) => {
                     $scope.identity = identity;
-                    this.instance = new ExpressChat.Instance($scope, identity.id, ExpressChat.chatSocketURL);
+                    this.instance = new ExpressChat.Instance($scope, identity.id, ExpressChat.chatSocketURL, Notification);
                     this.instance.socket.on('log error', (error) => {
                         Notification.error(error);
                     });
@@ -20,6 +20,9 @@ var ExpressChat;
             searchProfile() {
                 this.instance.socket.emit('search profile', this.userNameQuery);
                 this.viewType = 'searchProfile';
+            }
+            request() {
+                this.instance.socket.emit('request', this.instance.foundProfile.id);
             }
         }
         IndexCtrl.$inject = ['$scope', '$state', 'principal', 'fileUpload', 'Notification'];

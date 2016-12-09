@@ -103,11 +103,11 @@
 
                 <div class="panel" ng-if="ctrl.viewType == 'notification'">
                     <div class="panel-body">
-                        <p ng-if="!ctrl.instance.foundProfile">No notification found</p>
+                        <p ng-if="ctrl.instance.notifications.length == 0">No notification found</p>
                         <ul class="chat">
-                            <li class="left clearfix" ng-repeat="notification in ctrl.notifications">
+                            <li class="left clearfix" ng-repeat="notification in ctrl.instance.notifications">
                                 <span class="chat-img pull-left">
-                                    <img src="{{notification.from.profilePath}}" alt="User Avatar" class="img-circle" />
+                                    <img src="{{notification.from.profilePath}}" width="40" height="40" alt="User Avatar" class="img-circle" />
                                 </span>
                                 <div class="chat-body clearfix">
                                     <div class="header">
@@ -117,7 +117,13 @@
                                         </small>
                                     </div>
                                     <p>
-                                       {{notification.text}}
+                                       {{notification.text}} 
+                                       <button class="btn btn-primary btn-xs" ng-if="notification.type == 'request'">
+                                           <i class="fa fa-check"></i> Accept
+                                       </button>
+                                        <button class="btn btn-primary btn-xs" ng-if="notification.type == 'request'">
+                                            <i class="fa fa-remove"></i> Reject
+                                        </button>
                                     </p>
                                 </div>
                             </li>
