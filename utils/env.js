@@ -5,4 +5,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = (key) => {
     return env[node_env][key];
 };
-//# sourceMappingURL=config.js.map
+//# sourceMappingURL=env.js.map

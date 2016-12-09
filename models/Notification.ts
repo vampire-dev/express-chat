@@ -3,14 +3,18 @@ import {Instance} from './BaseModel';
 
 export interface INotification {
     id: number;
-    profileId: number;
-    messageId: number;
+    fromId: number;
+    text: string;
+    date: Date;
+    status: string;
 }
 
 export var attributes: sequelize.DefineAttributes = {
     id: { type: sequelize.BIGINT, allowNull: false, primaryKey: true, autoIncrement: true },
-    profileId: { type: sequelize.BIGINT, allowNull: false, field: 'profile_id' },
-    messageId: { type: sequelize.BIGINT, allowNull: false, field: 'message_id' }
+    fromId: { type: sequelize.BIGINT, allowNull: false, field: 'from_id' },
+    text: { type: sequelize.STRING, allowNull: false },
+    date: { type: sequelize.DATE, allowNull: false },
+    status: { type: sequelize.STRING, allowNull: false }
 }
 
 export var options: sequelize.DefineOptions<Instance<INotification>> = {

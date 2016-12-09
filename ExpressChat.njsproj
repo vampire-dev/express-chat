@@ -51,12 +51,15 @@
     <Content Include=".gitignore" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <TypeScriptCompile Include="controllers\BaseController.ts" />
     <TypeScriptCompile Include="models\BaseModel.ts" />
     <TypeScriptCompile Include="models\Message.ts" />
+    <TypeScriptCompile Include="models\Group.ts" />
+    <TypeScriptCompile Include="models\GroupRoom.ts" />
     <TypeScriptCompile Include="models\Profile.ts" />
     <TypeScriptCompile Include="models\Request.ts" />
     <TypeScriptCompile Include="models\Notification.ts" />
-    <TypeScriptCompile Include="models\Room.ts" />
+    <TypeScriptCompile Include="models\PrivateRoom.ts" />
     <TypeScriptCompile Include="models\User.ts" />
     <TypeScriptCompile Include="typings\angularjs\angular.d.ts" />
     <TypeScriptCompile Include="typings\bluebird\bluebird-2.0.d.ts" />

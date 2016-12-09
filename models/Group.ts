@@ -1,26 +1,24 @@
 ﻿import * as sequelize from 'sequelize';
 import {Instance} from './BaseModel';
 
-export interface IProfile {
+export interface IGroup {
     id: number;
-    userId: number;
+    name: number;
     room: string;
-    name: string;
     profilePath: string;
     galleryPath: string;
 }
 
 export var attributes: sequelize.DefineAttributes = {
     id: { type: sequelize.BIGINT, allowNull: false, primaryKey: true, autoIncrement: true },
-    userId: { type: sequelize.BIGINT, allowNull: false, field: 'user_id' },
-    room: { type: sequelize.STRING, allowNull: false },
     name: { type: sequelize.STRING, allowNull: false },
+    room: { type: sequelize.STRING, allowNull: false },
     profilePath: { type: sequelize.STRING, allowNull: false, field: 'profile_path' },
     galleryPath: { type: sequelize.STRING, allowNull: false, field: 'gallery_path' }
 }
 
-export var options: sequelize.DefineOptions<Instance<IProfile>> = {
+export var options: sequelize.DefineOptions<Instance<IGroup>> = {
     freezeTableName: true,
-    tableName: 'profiles',
+    tableName: 'groups',
     timestamps: false
 }
