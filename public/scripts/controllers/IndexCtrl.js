@@ -23,6 +23,13 @@ var ExpressChat;
             }
             request() {
                 this.instance.socket.emit('request', this.instance.foundProfile.id);
+                this.instance.foundProfile = null;
+            }
+            confirm(requesterId, notificationId) {
+                this.instance.socket.emit('confirm', { "requesterId": requesterId, "notificationId": notificationId });
+            }
+            deleteNotification(notificationId) {
+                this.instance.socket.emit('delete notification', notificationId);
             }
             logout() {
                 ExpressChat.Services.User.Logout();

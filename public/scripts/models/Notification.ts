@@ -7,7 +7,6 @@
         from?: any;
         text: string;
         date: Date;
-        status: string;
         type: string;
     }
 
@@ -19,7 +18,6 @@
         from: any;
         text: string;
         date: Date;
-        status: string;
         type: string;
 
         constructor(data?: INotification) {
@@ -30,7 +28,6 @@
             this.from = data ? data.from : null;
             this.text = data ? data.text : null;
             this.date = data ? data.date : null;
-            this.status = data ? data.status : null;
             this.type = data ? data.type : null;
         }
     }

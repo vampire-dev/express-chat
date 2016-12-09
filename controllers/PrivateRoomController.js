@@ -6,7 +6,7 @@ class PrivateRoomController extends BaseController_1.default {
         this.includes.push({ model: this.models.Profile, as: 'profile' });
     }
     findByRoom(room) {
-        return this.model.findAll({ where: { room: room } });
+        return this.model.findAll({ where: { room: room }, include: this.includes });
     }
 }
 Object.defineProperty(exports, "__esModule", { value: true });

@@ -77,35 +77,53 @@ export default class Instance {
         };
 
         RequestController.request(data).then(res => {
-            this.setRequests();
-
-            if (confirmerInstance) {
-                var notification: Notification.INotification = {
-                    id: null,
-                    profileId: confirmerId,
-                    fromId: this.profile.id,
-                    date: new Date(),
-                    status: 'unread',
-                    text: 'You have a friend request from ' + this.profile.name,
-                    type: 'request'
-                }
-
-                NotificationController.save(notification).then(result => {
-                    confirmerInstance.socket.emit('notify', notification);
-                    confirmerInstance.setNotifications();
-                });
+            var notification: Notification.INotification = {
+                id: null,
+                profileId: confirmerId,
+                fromId: this.profile.id,
+                date: new Date(),
+                text: 'You have a friend request from ' + this.profile.name,
+                type: 'request'
             }
 
-            this.setRequests();
+            NotificationController.save(notification).then(result => {
+                if (confirmerInstance) {
+                    confirmerInstance.socket.emit('notify', notification);
+                    confirmerInstance.setNotifications();
+                }
+
+                this.setRequests();
+            }); 
         });
     }
 
-    confirm(requesterId: number, requesterInstance: Instance): void {
+    confirm(requesterId: number, notificationId: number, requesterInstance: Instance): void {
         RequestController.approve(requesterId, this.profile.id).then(res => {
-            if (requesterInstance)
-                requesterInstance.setRooms();
+            var notification: Notification.INotification = {
+                id: null,
+                profileId: requesterId,
+                fromId: this.profile.id,
+                date: new Date(),
+                text: 'Your request has been approved by ' + this.profile.name,
+                type: 'confirm'
+            }
 
+            NotificationController.save(notification).then(result => {
+                if (requesterInstance) {
+                    requesterInstance.socket.emit('notify', notification);
+                    requesterInstance.setNotifications();
+                    requesterInstance.setRooms();
+                } 
+            });
+
+            this.deleteNotification(notificationId);
             this.setRooms();
+        });
+    }
+
+    deleteNotification(notificationId: number): void {
+        NotificationController.delete(notificationId).then(res => {
+            this.setNotifications();
         });
     }
 }

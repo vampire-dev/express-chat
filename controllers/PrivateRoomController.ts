@@ -10,7 +10,7 @@ class PrivateRoomController extends BaseController<IPrivateRoom>{
     }
 
     findByRoom(room: string): Promise<Instance<IPrivateRoom>[]> {
-        return this.model.findAll({ where: { room: room } });
+        return this.model.findAll({ where: { room: room }, include: this.includes });
     }
 }
 

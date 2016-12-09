@@ -29,7 +29,7 @@
                     </div>
                     <div class="btn-group pull-right">
                         <a href="#" class="btn btn-primary btn-xs" ng-click="ctrl.viewType = 'notification'">
-                            <i class="fa fa-comments"></i> Notifications
+                           <i class="fa fa-comments"></i> Notifications {{ctrl.instance.notifications.length}} 
                         </a>
                     </div>
                     <div class="btn-group">
@@ -88,7 +88,7 @@
                         <ul class="chat">
                             <li class="left clearfix" ng-repeat="room in ctrl.instance.rooms">
                                 <span class="chat-img pull-left">
-                                    <img src="{{room.profile.profilePath}}" alt="User Avatar" class="img-circle" />
+                                    <img src="{{room.profile.profilePath}}" width="40" height="40" alt="User Avatar" class="img-circle" />
                                 </span>
                                 <div class="chat-body clearfix">
                                     <div class="header">
@@ -114,13 +114,16 @@
                                         <strong class="primary-font">{{notification.from.name}}</strong>
                                         <small class="pull-right text-muted">
                                             <span class="glyphicon glyphicon-time"></span>{{notification.date | date: 'yyyy-MM-dd hh:mm:ss'}}
+                                            <a href="#" class="glyphicon glyphicon-remove text-danger" 
+                                               ng-if="notification.type != 'request' || notification.type != 'confirm'" 
+                                               ng-click="ctrl.deleteNotification(notification.id)">
+                                            </a>
                                         </small>
                                     </div>
                                     <p>
                                        {{notification.text}} 
-                                      
                                     </p>
-                                    <button class="btn btn-primary btn-xs" ng-if="notification.type == 'request'">
+                                    <button class="btn btn-primary btn-xs" ng-click="ctrl.confirm(notification.fromId, notification.id)" ng-if="notification.type == 'request'">
                                         <i class="fa fa-check"></i> Accept
                                     </button>
                                     <button class="btn btn-primary btn-xs" ng-if="notification.type == 'request'">

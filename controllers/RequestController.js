@@ -16,8 +16,11 @@ class RequestController extends BaseController_1.default {
     }
     approve(requesterId, confirmerId) {
         return this.sequelize.transaction((t) => {
-            return this.model.findOne({ where: { requesterId: requesterId, confirmerId: confirmerId }, transaction: t })
-                .then(res => {
+            return this.model.findOne({
+                where: { requesterId: requesterId, confirmerId: confirmerId },
+                include: this.includes,
+                transaction: t
+            }).then(res => {
                 var request = res.toJSON();
                 request.status = 'approved';
                 request.approvedDate = new Date();

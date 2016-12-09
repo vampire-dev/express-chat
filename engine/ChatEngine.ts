@@ -40,9 +40,15 @@ class ChatEngine {
                 instance.request(confirmerId, confirmerInstance);
             });
 
-            instance.socket.on('confirm', (requesterId: number) => {
+            instance.socket.on('confirm', (data: any) => {
+                var requesterId = data.requesterId;
+                var notificationId = data.notificationId;
                 var requesterInstance = this.instances[requesterId];
-                instance.confirm(requesterId, requesterInstance);
+                instance.confirm(requesterId, notificationId, requesterInstance);
+            });
+
+            instance.socket.on('delete notification', (notificationId: number) => {
+                instance.deleteNotification(notificationId);
             });
 
             instance.socket.on('disconnect', () => {

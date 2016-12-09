@@ -11,7 +11,6 @@ var ExpressChat;
                 this.from = data ? data.from : null;
                 this.text = data ? data.text : null;
                 this.date = data ? data.date : null;
-                this.status = data ? data.status : null;
                 this.type = data ? data.type : null;
             }
         }

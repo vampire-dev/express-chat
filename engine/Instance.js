@@ -58,30 +58,47 @@ class Instance {
             status: 'pending'
         };
         RequestController_1.default.request(data).then(res => {
-            this.setRequests();
-            if (confirmerInstance) {
-                var notification = {
-                    id: null,
-                    profileId: confirmerId,
-                    fromId: this.profile.id,
-                    date: new Date(),
-                    status: 'unread',
-                    text: 'You have a friend request from ' + this.profile.name,
-                    type: 'request'
-                };
-                NotificationController_1.default.save(notification).then(result => {
+            var notification = {
+                id: null,
+                profileId: confirmerId,
+                fromId: this.profile.id,
+                date: new Date(),
+                text: 'You have a friend request from ' + this.profile.name,
+                type: 'request'
+            };
+            NotificationController_1.default.save(notification).then(result => {
+                if (confirmerInstance) {
                     confirmerInstance.socket.emit('notify', notification);
                     confirmerInstance.setNotifications();
-                });
-            }
-            this.setRequests();
+                }
+                this.setRequests();
+            });
         });
     }
-    confirm(requesterId, requesterInstance) {
+    confirm(requesterId, notificationId, requesterInstance) {
         RequestController_1.default.approve(requesterId, this.profile.id).then(res => {
-            if (requesterInstance)
-                requesterInstance.setRooms();
+            var notification = {
+                id: null,
+                profileId: requesterId,
+                fromId: this.profile.id,
+                date: new Date(),
+                text: 'Your request has been approved by ' + this.profile.name,
+                type: 'confirm'
+            };
+            NotificationController_1.default.save(notification).then(result => {
+                if (requesterInstance) {
+                    requesterInstance.socket.emit('notify', notification);
+                    requesterInstance.setNotifications();
+                    requesterInstance.setRooms();
+                }
+            });
+            this.deleteNotification(notificationId);
             this.setRooms();
+        });
+    }
+    deleteNotification(notificationId) {
+        NotificationController_1.default.delete(notificationId).then(res => {
+            this.setNotifications();
         });
     }
 }

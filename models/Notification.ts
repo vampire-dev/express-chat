@@ -9,7 +9,6 @@ export interface INotification {
     from?: any;
     text: string;
     date: Date;
-    status: string;
     type: string;
 }
 
@@ -19,7 +18,6 @@ export var attributes: sequelize.DefineAttributes = {
     fromId: { type: sequelize.BIGINT, allowNull: false, field: 'from_id' },
     text: { type: sequelize.TEXT, allowNull: false },
     date: { type: sequelize.DATE, allowNull: false },
-    status: { type: sequelize.STRING, allowNull: false },
     type: { type: sequelize.STRING, allowNull: false }
 }
 
