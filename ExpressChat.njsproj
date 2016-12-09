@@ -52,6 +52,14 @@
     <Content Include="package.json" />
     <Content Include="README.md" />
     <TypeScriptCompile Include="controllers\BaseController.ts" />
+    <TypeScriptCompile Include="controllers\MessageController.ts" />
+    <TypeScriptCompile Include="controllers\NotificationController.ts" />
+    <TypeScriptCompile Include="controllers\RequestController.ts" />
+    <TypeScriptCompile Include="controllers\GroupRoomController.ts" />
+    <TypeScriptCompile Include="controllers\GroupController.ts" />
+    <TypeScriptCompile Include="controllers\PrivateRoomController.ts" />
+    <TypeScriptCompile Include="controllers\ProfileController.ts" />
+    <TypeScriptCompile Include="controllers\UserController.ts" />
     <TypeScriptCompile Include="models\BaseModel.ts" />
     <TypeScriptCompile Include="models\Configurator.ts" />
     <TypeScriptCompile Include="models\Message.ts" />

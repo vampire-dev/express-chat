@@ -49,6 +49,9 @@
     },
     "jquery/jquery.d.ts": {
       "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
+    },
+    "uuid/UUID.d.ts": {
+      "commit": "e45879a3b4a6d7e265f21103ae044cefb3cee37c"
     }
   }
 }

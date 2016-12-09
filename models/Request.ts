@@ -4,7 +4,9 @@ import {Instance} from './BaseModel';
 export interface IRequest {
     id: number;
     requesterId: number;
+    requester: any;
     confirmerId: number;
+    confirmer: any;
     requestDate: Date;
     approvedDate: Date;
     status: string;
