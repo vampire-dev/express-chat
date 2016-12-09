@@ -26,17 +26,25 @@ var ExpressChat;
                     });
                 });
             });
+            this.socket.on('get messages', (messages) => {
+                $scope.$apply(() => {
+                    this.messages = [];
+                    messages.forEach(message => {
+                        this.messages.push(new ExpressChat.Models.Message(message));
+                    });
+                });
+            });
             this.socket.on('get search profile', (profile) => {
                 $scope.$apply(() => {
                     this.foundProfile = new ExpressChat.Models.Profile(profile);
                 });
             });
-            this.socket.on('get recipient', (profile) => {
+            this.socket.on('get room', (profile) => {
                 $scope.$apply(() => {
                     this.recipient = new ExpressChat.Models.Profile(profile);
                 });
             });
-            this.socket.on('notify', (notification) => {
+            this.socket.on('notify', () => {
                 $scope.$apply(() => {
                     notifier.success('You got new notification');
                 });

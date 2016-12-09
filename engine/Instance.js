@@ -3,6 +3,7 @@ const ProfileController_1 = require('../controllers/ProfileController');
 const PrivateRoomController_1 = require('../controllers/PrivateRoomController');
 const RequestController_1 = require('../controllers/RequestController');
 const NotificationController_1 = require('../controllers/NotificationController');
+const MessageController_1 = require('../controllers/MessageController');
 class Instance {
     constructor(socket) {
         this.socket = socket;
@@ -41,6 +42,14 @@ class Instance {
             this.socket.emit('get notifications', res.map(e => e.toJSON()));
         });
     }
+    setMessages() {
+        MessageController_1.default.findMessages(this.profile.id, this.recipient.id).then(res => {
+            this.socket.emit('get messages', res.map(e => e.toJSON()));
+        });
+    }
+    clearRoom() {
+        this.recipient = null;
+    }
     searchProfile(userName) {
         ProfileController_1.default.findByUserName(userName).then(res => {
             this.socket.emit('get search profile', res.toJSON());
@@ -55,7 +64,8 @@ class Instance {
                 return;
             }
             this.recipient = res.toJSON();
-            this.socket.emit('get recipient', this.recipient);
+            this.socket.emit('get room', this.recipient);
+            this.setMessages();
         });
     }
     request(confirmerId, confirmerInstance) {
@@ -95,15 +105,47 @@ class Instance {
                 text: 'Your request has been approved by ' + this.profile.name,
                 type: 'confirm'
             };
-            NotificationController_1.default.save(notification).then(result => {
-                if (requesterInstance) {
-                    requesterInstance.socket.emit('notify', notification);
-                    requesterInstance.setNotifications();
-                    requesterInstance.setRooms();
-                }
-            });
+            this.saveNotification(notification);
+            if (requesterInstance) {
+                requesterInstance.socket.emit('notify', null);
+                requesterInstance.setRooms();
+            }
             this.deleteNotification(notificationId);
             this.setRooms();
+        });
+    }
+    sendMessage(text, receiverInstance) {
+        var data = {
+            id: null,
+            date: new Date(),
+            senderId: this.profile.id,
+            receiverId: this.recipient.id,
+            text: text
+        };
+        var notification = {
+            id: null,
+            profileId: this.recipient.id,
+            fromId: this.profile.id,
+            date: new Date(),
+            text: 'You got new message from ' + this.profile.name,
+            type: 'message'
+        };
+        if (!receiverInstance)
+            receiverInstance.saveNotification(notification);
+        else if (receiverInstance) {
+            if (!receiverInstance.recipient || receiverInstance.recipient.id !== this.profile.id) {
+                receiverInstance.saveNotification(notification);
+                receiverInstance.socket.emit('notify', null);
+            }
+        }
+        MessageController_1.default.save(data).then(res => {
+            this.setMessages();
+            receiverInstance.setMessages();
+        });
+    }
+    saveNotification(data) {
+        NotificationController_1.default.save(data).then(res => {
+            this.setNotifications();
         });
     }
     deleteNotification(notificationId) {

@@ -6,6 +6,8 @@ import * as Request from '../models/Request';
 import RequestController from '../controllers/RequestController';
 import * as Notification from '../models/Notification';
 import NotificationController from '../controllers/NotificationController';
+import * as Message from '../models/Message';
+import MessageController from '../controllers/MessageController';
 
 export default class Instance {
     socket: SocketIO.Socket;
@@ -58,6 +60,16 @@ export default class Instance {
             this.socket.emit('get notifications', res.map(e => e.toJSON()));
         });
     }
+    
+    setMessages(): void {
+        MessageController.findMessages(this.profile.id, this.recipient.id).then(res => {
+            this.socket.emit('get messages', res.map(e => e.toJSON()));
+        });
+    }
+
+    clearRoom(): void {
+        this.recipient = null;
+    }
 
     searchProfile(userName: string): void {
         ProfileController.findByUserName(userName).then(res => {
@@ -75,7 +87,8 @@ export default class Instance {
             }
 
             this.recipient = res.toJSON();
-            this.socket.emit('get recipient', this.recipient);
+            this.socket.emit('get room', this.recipient);
+            this.setMessages();
         });
     }
 
@@ -121,16 +134,55 @@ export default class Instance {
                 type: 'confirm'
             }
 
-            NotificationController.save(notification).then(result => {
-                if (requesterInstance) {
-                    requesterInstance.socket.emit('notify', notification);
-                    requesterInstance.setNotifications();
-                    requesterInstance.setRooms();
-                } 
-            });
+            this.saveNotification(notification);
+
+            if (requesterInstance) {
+                requesterInstance.socket.emit('notify', null);
+                requesterInstance.setRooms();
+            } 
 
             this.deleteNotification(notificationId);
             this.setRooms();
+        });
+    }
+
+    sendMessage(text: string, receiverInstance: Instance): void {
+        var data: Message.IMessage = {
+            id: null,
+            date: new Date(),
+            senderId: this.profile.id,
+            receiverId: this.recipient.id,
+            text: text
+        }
+
+        var notification: Notification.INotification = {
+            id: null,
+            profileId: this.recipient.id,
+            fromId: this.profile.id,
+            date: new Date(),
+            text: 'You got new message from ' + this.profile.name,
+            type: 'message'
+        }
+
+        if (!receiverInstance)
+            receiverInstance.saveNotification(notification);
+
+        else if (receiverInstance) {
+            if (!receiverInstance.recipient || receiverInstance.recipient.id !== this.profile.id) {
+                receiverInstance.saveNotification(notification);
+                receiverInstance.socket.emit('notify', null);
+            }
+        }
+
+        MessageController.save(data).then(res => {
+            this.setMessages();
+            receiverInstance.setMessages();
+        });
+    }
+
+    saveNotification(data: any): void {
+        NotificationController.save(data).then(res => {
+            this.setNotifications();
         });
     }
 

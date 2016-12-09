@@ -10,6 +10,7 @@
         requests: Models.IRequest[];
         pendings: Models.IRequest[];
         notifications: Models.INotification[];
+        messages: Models.IMessage[];
 
         constructor($scope: any, userId: number, url: string, notifier: any) {
             this.socket = io.connect(url);
@@ -42,19 +43,29 @@
                 });
             });
 
+            this.socket.on('get messages', (messages: any[]) => {
+                $scope.$apply(() => {
+                    this.messages = [];
+
+                    messages.forEach(message => {
+                        this.messages.push(new Models.Message(message));
+                    });
+                });
+            });
+
             this.socket.on('get search profile', (profile: any) => {
                 $scope.$apply(() => {
                     this.foundProfile = new Models.Profile(profile);
                 });
             });
 
-            this.socket.on('get recipient', (profile: any) => {
+            this.socket.on('get room', (profile: any) => {
                 $scope.$apply(() => {
                     this.recipient = new Models.Profile(profile);
                 });
             });
 
-            this.socket.on('notify', (notification: any) => {
+            this.socket.on('notify', () => {
                 $scope.$apply(() => {
                     notifier.success('You got new notification');
                 });

@@ -65,6 +65,11 @@
     <Content Include="public\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="public\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="public\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="public\images\emojis%402x.png" />
+    <Content Include="public\images\emojis.png" />
+    <Content Include="public\images\loader.svg" />
+    <Content Include="public\images\user.gif" />
+    <Content Include="public\images\user.png" />
     <Content Include="public\views\main.html" />
     <Content Include="public\views\login.html" />
     <Content Include="public\views\index.html" />
@@ -137,6 +142,7 @@
     <Folder Include="public\" />
     <Folder Include="public\css\" />
     <Folder Include="public\fonts\" />
+    <Folder Include="public\images\" />
     <Folder Include="public\js\" />
     <Folder Include="public\scripts\" />
     <Folder Include="public\scripts\models\" />

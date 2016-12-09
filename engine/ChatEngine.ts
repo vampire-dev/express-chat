@@ -44,11 +44,22 @@ class ChatEngine {
                 instance.setRoom(recipientId);
             });
 
+            instance.socket.on('clear room', () => {
+                instance.clearRoom();
+            });
+
             instance.socket.on('confirm', (data: any) => {
                 var requesterId = data.requesterId;
                 var notificationId = data.notificationId;
                 var requesterInstance = this.instances[requesterId];
                 instance.confirm(requesterId, notificationId, requesterInstance);
+            });
+
+            instance.socket.on('send message', (data: any) => {
+                var receiverId = data.receiverId;
+                var chatMessage = data.chatMessage;
+                var receiverInstance = this.instances[receiverId];
+                instance.sendMessage(chatMessage, receiverInstance);
             });
 
             instance.socket.on('delete notification', (notificationId: number) => {

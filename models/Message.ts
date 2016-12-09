@@ -9,7 +9,6 @@ export interface IMessage {
     receiver?: any;
     date: Date;
     text: string;
-    status: string;
 }
 
 export var attributes: sequelize.DefineAttributes = {
@@ -17,8 +16,7 @@ export var attributes: sequelize.DefineAttributes = {
     senderId: { type: sequelize.BIGINT, allowNull: false, field: 'sender_id' },
     receiverId: { type: sequelize.BIGINT, allowNull: false, field: 'receiver_id' },
     date: { type: sequelize.DATE, allowNull: false },
-    text: { type: sequelize.TEXT, allowNull: false },
-    status: { type: sequelize.STRING, allowNull: false },
+    text: { type: sequelize.TEXT, allowNull: false }
 }
 
 export var options: sequelize.DefineOptions<Instance<IMessage>> = {

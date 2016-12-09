@@ -3,10 +3,29 @@
         instance: Instance;
         viewType: string;
         userNameQuery: string;
+        chatMessage: string;
 
         static $inject = ['$scope', '$state', 'principal', 'fileUpload', 'Notification'];
 
         constructor(public $scope, public $state, public principal, public fileUpload, Notification) {
+            $scope.options = {
+                link: true,
+                linkTarget: '_blank',
+                pdf: { embed: true },
+                image: { embed: true },
+                audio: { embed: true },
+                code: { highlight: true, lineNumbers: false },
+                basicVideo: false,
+                video: {
+                    embed: false,
+                    width: null,
+                    height: null,
+                    ytTheme: 'dark',
+                    details: false,
+                    ytAuthKey: null
+                }
+            };
+
             this.viewType = 'room';
 
             principal.identity().then((identity) => {
@@ -40,7 +59,18 @@
 
         setRoom(profileId: number): void {
             this.viewType = 'chat';
-            this.instance.socket.emit('set recipient', profileId);
+            this.instance.socket.emit('set room', profileId);
+        }
+
+        sendMessage(): void {
+            this.instance.socket.emit('send message', { "chatMessage": this.chatMessage, "receiverId": this.instance.recipient.id });
+            this.chatMessage = null;
+        }
+
+        changeType(type: string): void {
+            this.viewType = type;
+            this.instance.recipient = null;
+            this.instance.socket.emit('clear room', null);
         }
 
         logout() {

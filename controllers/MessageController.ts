@@ -13,7 +13,7 @@ class MessageController extends BaseController<IMessage>{
         return this.model.findAll({
             where: {
                 $and: [{ $or: [{ senderId: senderId }, { receiverId: senderId }] },
-                    { $or: [{ receiverId: receiverId }, { receiverId: receiverId }] }]
+                    { $or: [{ senderId: receiverId }, { receiverId: receiverId }] }]
             },
             include: this.includes,
             order: ['id']

@@ -8,6 +8,23 @@ var ExpressChat;
                 this.$state = $state;
                 this.principal = principal;
                 this.fileUpload = fileUpload;
+                $scope.options = {
+                    link: true,
+                    linkTarget: '_blank',
+                    pdf: { embed: true },
+                    image: { embed: true },
+                    audio: { embed: true },
+                    code: { highlight: true, lineNumbers: false },
+                    basicVideo: false,
+                    video: {
+                        embed: false,
+                        width: null,
+                        height: null,
+                        ytTheme: 'dark',
+                        details: false,
+                        ytAuthKey: null
+                    }
+                };
                 this.viewType = 'room';
                 principal.identity().then((identity) => {
                     $scope.identity = identity;
@@ -33,7 +50,16 @@ var ExpressChat;
             }
             setRoom(profileId) {
                 this.viewType = 'chat';
-                this.instance.socket.emit('set recipient', profileId);
+                this.instance.socket.emit('set room', profileId);
+            }
+            sendMessage() {
+                this.instance.socket.emit('send message', { "chatMessage": this.chatMessage, "receiverId": this.instance.recipient.id });
+                this.chatMessage = null;
+            }
+            changeType(type) {
+                this.viewType = type;
+                this.instance.recipient = null;
+                this.instance.socket.emit('clear room', null);
             }
             logout() {
                 ExpressChat.Services.User.Logout();

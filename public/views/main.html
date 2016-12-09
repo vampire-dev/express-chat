@@ -23,17 +23,17 @@
                         </a>
                     </div>
                     <div class="btn-group pull-right">
-                        <a href="#" class="btn btn-primary btn-xs" ng-click="ctrl.viewType = 'room'">
+                        <a href="#" class="btn btn-primary btn-xs" ng-click="ctrl.changeType('room')">
                             <i class="fa fa-weixin"></i> Messages
                         </a>
                     </div>
                     <div class="btn-group pull-right">
-                        <a href="#" class="btn btn-primary btn-xs" ng-click="ctrl.viewType = 'notification'">
-                           <i class="fa fa-comments"></i> Notifications {{ctrl.instance.notifications.length}} 
+                        <a href="#" class="btn btn-primary btn-xs" ng-click="ctrl.changeType('notification')">
+                            <i class="fa fa-comments"></i> Notifications {{ctrl.instance.notifications.length}}
                         </a>
                     </div>
                     <div class="btn-group">
-                        <a href="#" class="btn btn-primary btn-xs" ng-click="ctrl.viewType = 'profile'">
+                        <a href="#" class="btn btn-primary btn-xs" ng-click="ctrl.changeType('profile')">
                             <i class="fa fa-user"></i> Profile
                         </a>
                     </div>
@@ -90,7 +90,7 @@
                                 <span class="chat-img pull-left">
                                     <img src="{{room.profile.profilePath}}" width="40" height="40" alt="User Avatar" class="img-circle" />
                                     <br />
-                                    
+
                                 </span>
 
                                 <div class="chat-body clearfix">
@@ -120,14 +120,14 @@
                                         <strong class="primary-font">{{notification.from.name}}</strong>
                                         <small class="pull-right text-muted">
                                             <span class="glyphicon glyphicon-time"></span>{{notification.date | date: 'yyyy-MM-dd hh:mm:ss'}}
-                                            <a href="#" class="glyphicon glyphicon-remove text-danger" 
-                                               ng-if="notification.type != 'request' || notification.type != 'confirm'" 
+                                            <a href="#" class="glyphicon glyphicon-remove text-danger"
+                                               ng-if="notification.type != 'request' || notification.type != 'confirm'"
                                                ng-click="ctrl.deleteNotification(notification.id)">
                                             </a>
                                         </small>
                                     </div>
                                     <p>
-                                       {{notification.text}} 
+                                        {{notification.text}}
                                     </p>
                                     <button class="btn btn-primary btn-xs" ng-click="ctrl.confirm(notification.fromId, notification.id)" ng-if="notification.type == 'request'">
                                         <i class="fa fa-check"></i> Accept
@@ -144,75 +144,28 @@
                 <div class="panel" ng-if="ctrl.viewType == 'chat'">
                     <div class="panel-body">
                         <ul class="chat">
-                            <li class="left clearfix">
-                                <span class="chat-img pull-left">
-                                    <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                            <li class="left clearfix" ng-repeat="message in ctrl.instance.messages">
+                                <span class="chat-img" ng-class="{'pull-left': message.sender.id == ctrl.instance.profile.id, 'pull-right': message.receiver.id == ctrl.instance.profile.id}">
+                                    <img src="{{message.sender.profilePath}}" width="40" height="40" alt="User Avatar" class="img-circle" />
                                 </span>
                                 <div class="chat-body clearfix">
                                     <div class="header">
-                                        <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                            <span class="glyphicon glyphicon-time"></span>12 mins ago
+                                        <strong class="primary-font" ng-class="{'': message.sender.id == ctrl.instance.profile.id, 'pull-right': message.receiver.id == ctrl.instance.profile.id}">{{message.sender.name}}</strong>
+                                        <small class="text-muted" ng-class="{'pull-right': message.sender.id == ctrl.instance.profile.id, '': message.receiver.id == ctrl.instance.profile.id}">
+                                            <span class="glyphicon glyphicon-time"></span>
+                                            {{message.date | date: 'yyyy-MM-dd hh:mm:ss'}}
                                         </small>
                                     </div>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                        dolor, quis ullamcorper ligula sodales.
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="right clearfix">
-                                <span class="chat-img pull-right">
-                                    <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
-                                        <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                    </div>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                        dolor, quis ullamcorper ligula sodales.
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="left clearfix">
-                                <span class="chat-img pull-left">
-                                    <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                            <span class="glyphicon glyphicon-time"></span>14 mins ago
-                                        </small>
-                                    </div>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                        dolor, quis ullamcorper ligula sodales.
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="right clearfix">
-                                <span class="chat-img pull-right">
-                                    <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>15 mins ago</small>
-                                        <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                    </div>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                        dolor, quis ullamcorper ligula sodales.
-                                    </p>
+                                    <ng-emoticons style="word-wrap: break-word;" emoticons-data="message.text" emoticons-options="options" />
                                 </div>
                             </li>
                         </ul>
                     </div>
                     <div class="panel-footer">
                         <div class="input-group">
-                            <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                            <input id="btn-input" type="text" ng-model="ctrl.chatMessage" class="form-control input-sm" placeholder="Type your message here..." />
                             <span class="input-group-btn">
-                                <button class="btn btn-warning btn-sm" id="btn-chat">
+                                <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="ctrl.sendMessage()">
                                     Send
                                 </button>
                             </span>
