@@ -20,6 +20,7 @@ class UserController extends BaseController_1.default {
                         "name": data.name,
                         "profilePath": '/postbox/profiles/' + user.userName + '/' + user.userName + '.jpg',
                         "galleryPath": '/postbox/galleries/' + user.userName + '/' + user.userName + '.jpg',
+                        "email": data.email,
                         "userId": user.id,
                         "room": uuid.v1()
                     };

@@ -46,9 +46,12 @@
   <ItemGroup>
     <Content Include="env.json.example" />
     <Content Include="env.json" />
+    <Content Include="public\css\angular-ui-notification.min.css" />
     <Content Include="public\css\app.css" />
     <Content Include="public\css\bootstrap.css" />
     <Content Include="public\css\font-awesome.css" />
+    <Content Include="public\css\loading-bar.css" />
+    <Content Include="public\css\ng-emoticons.min.css" />
     <Content Include="public\fonts\emoticons.eot" />
     <Content Include="public\fonts\emoticons.svg" />
     <Content Include="public\fonts\emoticons.ttf" />
@@ -105,6 +108,7 @@
     <TypeScriptCompile Include="public\scripts\models\User.ts" />
     <TypeScriptCompile Include="public\scripts\Services.ts" />
     <TypeScriptCompile Include="public\scripts\SocketIO.ts" />
+    <TypeScriptCompile Include="services.ts" />
     <TypeScriptCompile Include="typings\angularjs\angular.d.ts" />
     <TypeScriptCompile Include="typings\bluebird\bluebird-2.0.d.ts" />
     <TypeScriptCompile Include="typings\body-parser\body-parser.d.ts" />
