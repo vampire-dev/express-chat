@@ -44,6 +44,8 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="env.json.example" />
+    <Content Include="env.json" />
     <Content Include="tsd.json" />
     <TypeScriptCompile Include="app.ts" />
     <Content Include=".gitignore" />
@@ -72,11 +74,17 @@
     <TypeScriptCompile Include="typings\socket.io\socket.io.d.ts" />
     <TypeScriptCompile Include="typings\tsd.d.ts" />
     <TypeScriptCompile Include="typings\validator\validator.d.ts" />
+    <TypeScriptCompile Include="utils\auth.ts" />
+    <TypeScriptCompile Include="utils\config.ts" />
+    <TypeScriptCompile Include="utils\multipart.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="models\" />
     <Folder Include="controllers\" />
     <Folder Include="engine\" />
+    <Folder Include="stored\" />
+    <Folder Include="stored\galleries\" />
+    <Folder Include="stored\profiles\" />
     <Folder Include="utils\" />
     <Folder Include="typings\" />
     <Folder Include="typings\angularjs\" />
