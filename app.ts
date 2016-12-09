@@ -39,5 +39,8 @@ app.get('/express-chat/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/views/index.html'));
 });
 
+import services from './services';
+app.use(services);
+
 import chatEngine from './engine/ChatEngine';
 chatEngine.start(app, env('chat_port'));

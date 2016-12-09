@@ -32,6 +32,8 @@ app.get('/express-chat', (req, res) => {
 app.get('/express-chat/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/views/index.html'));
 });
+const services_1 = require('./services');
+app.use(services_1.default);
 const ChatEngine_1 = require('./engine/ChatEngine');
 ChatEngine_1.default.start(app, env_1.default('chat_port'));
 //# sourceMappingURL=app.js.map
