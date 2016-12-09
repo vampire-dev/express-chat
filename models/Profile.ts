@@ -6,6 +6,7 @@ export interface IProfile {
     userId: number;
     room: string;
     name: string;
+    email: string;
     profilePath: string;
     galleryPath: string;
 }
@@ -15,6 +16,7 @@ export var attributes: sequelize.DefineAttributes = {
     userId: { type: sequelize.BIGINT, allowNull: false, field: 'user_id' },
     room: { type: sequelize.STRING, allowNull: false },
     name: { type: sequelize.STRING, allowNull: false },
+    email: { type: sequelize.STRING, allowNull: false },
     profilePath: { type: sequelize.STRING, allowNull: false, field: 'profile_path' },
     galleryPath: { type: sequelize.STRING, allowNull: false, field: 'gallery_path' }
 }
