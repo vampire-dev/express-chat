@@ -6,7 +6,7 @@ exports.attributes = {
     confirmerId: { type: sequelize.BIGINT, allowNull: false, field: 'confirmer_id' },
     requestDate: { type: sequelize.DATE, allowNull: false, field: 'request_date' },
     approvedDate: { type: sequelize.DATE, allowNull: true, field: 'approved_date' },
-    status: { type: sequelize.DATE, allowNull: false },
+    status: { type: sequelize.STRING, allowNull: false },
 };
 exports.options = {
     freezeTableName: true,

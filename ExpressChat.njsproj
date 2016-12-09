@@ -53,6 +53,7 @@
     <Content Include="README.md" />
     <TypeScriptCompile Include="controllers\BaseController.ts" />
     <TypeScriptCompile Include="models\BaseModel.ts" />
+    <TypeScriptCompile Include="models\Configurator.ts" />
     <TypeScriptCompile Include="models\Message.ts" />
     <TypeScriptCompile Include="models\Group.ts" />
     <TypeScriptCompile Include="models\GroupRoom.ts" />
@@ -78,7 +79,7 @@
     <TypeScriptCompile Include="typings\tsd.d.ts" />
     <TypeScriptCompile Include="typings\validator\validator.d.ts" />
     <TypeScriptCompile Include="utils\auth.ts" />
-    <TypeScriptCompile Include="utils\config.ts" />
+    <TypeScriptCompile Include="utils\env.ts" />
     <TypeScriptCompile Include="utils\multipart.ts" />
   </ItemGroup>
   <ItemGroup>

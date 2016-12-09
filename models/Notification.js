@@ -3,7 +3,7 @@ const sequelize = require('sequelize');
 exports.attributes = {
     id: { type: sequelize.BIGINT, allowNull: false, primaryKey: true, autoIncrement: true },
     fromId: { type: sequelize.BIGINT, allowNull: false, field: 'from_id' },
-    text: { type: sequelize.STRING, allowNull: false },
+    text: { type: sequelize.TEXT, allowNull: false },
     date: { type: sequelize.DATE, allowNull: false },
     status: { type: sequelize.STRING, allowNull: false }
 };
