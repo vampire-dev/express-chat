@@ -22,9 +22,10 @@ class UserController extends BaseController<IUser>{
                     var profileData = {
                         "id": null,
                         "name": data.name,
-                        "profilePath": '/chat-express/profiles/' + user.userName + '/' + user.userName + '.jpg',
+                        "profilePath": '/express-chat/profiles/' + user.userName + '/' + user.userName + '.jpg',
                         "email": data.email,
                         "userId": user.id,
+                        "status": data.status,
                         "room": uuidV1()
                     };
                     return this.models.Profile.insertOrUpdate(profileData, { validate: true, transaction: t });

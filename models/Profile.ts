@@ -8,6 +8,7 @@ export interface IProfile {
     name: string;
     email: string;
     profilePath: string;
+    status: string;
 }
 
 export var attributes: sequelize.DefineAttributes = {
@@ -16,7 +17,8 @@ export var attributes: sequelize.DefineAttributes = {
     room: { type: sequelize.STRING, allowNull: false },
     name: { type: sequelize.STRING, allowNull: false },
     email: { type: sequelize.STRING, allowNull: false },
-    profilePath: { type: sequelize.STRING, allowNull: false, field: 'profile_path' }
+    profilePath: { type: sequelize.STRING, allowNull: false, field: 'profile_path' },
+    status: { type: sequelize.STRING, allowNull: false }
 }
 
 export var options: sequelize.DefineOptions<Instance<IProfile>> = {

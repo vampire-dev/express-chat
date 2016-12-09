@@ -59,9 +59,9 @@ export default class Instance {
         });
     }
 
-    findProfile(userName: string): void {
+    searchProfile(userName: string): void {
         ProfileController.findByUserName(userName).then(res => {
-            this.socket.emit('get find profile', res.toJSON());
+            this.socket.emit('get search profile', res.toJSON());
         }).catch(exception => {
             this.socket.emit('log error', exception.message);
         });

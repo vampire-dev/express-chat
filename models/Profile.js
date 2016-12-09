@@ -6,7 +6,8 @@ exports.attributes = {
     room: { type: sequelize.STRING, allowNull: false },
     name: { type: sequelize.STRING, allowNull: false },
     email: { type: sequelize.STRING, allowNull: false },
-    profilePath: { type: sequelize.STRING, allowNull: false, field: 'profile_path' }
+    profilePath: { type: sequelize.STRING, allowNull: false, field: 'profile_path' },
+    status: { type: sequelize.STRING, allowNull: false }
 };
 exports.options = {
     freezeTableName: true,

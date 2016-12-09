@@ -43,9 +43,9 @@ class Instance {
             this.socket.emit('log error', exception.message);
         });
     }
-    findProfile(userName) {
+    searchProfile(userName) {
         ProfileController_1.default.findByUserName(userName).then(res => {
-            this.socket.emit('get find profile', res.toJSON());
+            this.socket.emit('get search profile', res.toJSON());
         }).catch(exception => {
             this.socket.emit('log error', exception.message);
         });

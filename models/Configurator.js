@@ -20,7 +20,6 @@ function create(sequelize) {
     };
     models.Profile.belongsTo(models.User, { as: 'user', foreignKey: 'userId' });
     models.PrivateRoom.belongsTo(models.Profile, { as: 'profile', foreignKey: 'profileId' });
-    models.PrivateRoom.belongsTo(models.Profile, { as: 'recipient', foreignKey: 'recipientId' });
     models.GroupRoom.belongsTo(models.Group, { as: 'group', foreignKey: 'group_id' });
     models.GroupRoom.belongsTo(models.Profile, { as: 'profile', foreignKey: 'profile_id' });
     models.Request.belongsTo(models.Profile, { as: 'requester', foreignKey: 'requesterId' });

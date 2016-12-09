@@ -12,7 +12,7 @@ class MessageController extends BaseController<IMessage>{
     findMessages(senderId: number, receiverId: number): Promise<Instance<IMessage>[]> {
         return this.model.findAll({
             where: {
-                $and: [{ $or: [{ senderId: senderId }, { recipientId: senderId }] },
+                $and: [{ $or: [{ senderId: senderId }, { receiverId: senderId }] },
                     { $or: [{ receiverId: receiverId }, { receiverId: receiverId }] }]
             },
             include: this.includes,

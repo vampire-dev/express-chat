@@ -8,7 +8,7 @@ class MessageController extends BaseController_1.default {
     findMessages(senderId, receiverId) {
         return this.model.findAll({
             where: {
-                $and: [{ $or: [{ senderId: senderId }, { recipientId: senderId }] },
+                $and: [{ $or: [{ senderId: senderId }, { receiverId: senderId }] },
                     { $or: [{ receiverId: receiverId }, { receiverId: receiverId }] }]
             },
             include: this.includes,

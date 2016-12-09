@@ -16,8 +16,8 @@ app.use(session({ secret: env_1.default('secret'), saveUninitialized: true, resa
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/express-chat/', express.static(path.join(__dirname, 'public')));
-app.use('/express-chat/stored/profiles', express.static(path.join(__dirname, 'profiles/')));
-app.use('/express-chat/stored/galleries', express.static(path.join(__dirname, 'galleries/')));
+app.use('/express-chat/profiles', express.static(path.join(__dirname, 'stored/profiles/')));
+app.use('/express-chat/galleries', express.static(path.join(__dirname, 'stored/galleries/')));
 app.use('/express-chat/js/', express.static(path.join(__dirname, '/public/js/')));
 app.use('/express-chat/images/', express.static(path.join(__dirname, '/public/images/')));
 app.use('/express-chat/css/', express.static(path.join(__dirname, '/public/css/')));

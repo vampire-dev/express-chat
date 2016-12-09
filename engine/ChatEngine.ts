@@ -3,9 +3,11 @@ import * as http from 'http';
 import Instance from './Instance';
 
 class ChatEngine {
-    instances: any = {};
+    instances: any;
 
-    constructor() { }
+    constructor() {
+        this.instances = {};
+    }
 
     start(app, port): void {
         var server = http.createServer(app);
@@ -15,35 +17,33 @@ class ChatEngine {
             console.log('Chat engine is running on port %s', port);
         });
 
-        io.on('connection', this.connect);
-    }
+        io.on('connection', (socket) => {
+            var instance = new Instance(socket);
 
-    private connect(socket: SocketIO.Socket): void {
-        var instance = new Instance(socket);
+            instance.socket.on('initialize', (userId: number) => {
+                instance.userId = userId;
 
-        instance.socket.on('initialize', (userId: number) => {
-            instance.userId = userId;
+                if (!this.instances[userId])
+                    this.instances[userId] = instance;
+                else
+                    this.instances[userId] = instance;
 
-            if (!this.instances[userId])
-                this.instances[userId] = instance;
-            else
-                this.instances[userId] = instance;
+                instance.initialize();
+            });
 
-            instance.initialize();
-        });
+            instance.socket.on('search profile', (userName: string) => {
+                instance.searchProfile(userName);
+            });
 
-        instance.socket.on('find profile', (userName: string) => {
-            instance.findProfile(userName);
-        });
+            instance.socket.on('request', (confirmerId: number) => {
+                var confirmerInstance = this.instances[confirmerId];
+                instance.request(confirmerId, confirmerInstance);
+            });
 
-        instance.socket.on('request', (confirmerId: number) => {
-            var confirmerInstance = this.instances[confirmerId];
-            instance.request(confirmerId, confirmerInstance);
-        });
-
-        instance.socket.on('confirm', (requesterId: number) => {
-            var requesterInstance = this.instances[requesterId];
-            instance.confirm(requesterId, requesterInstance);
+            instance.socket.on('confirm', (requesterId: number) => {
+                var requesterInstance = this.instances[requesterId];
+                instance.confirm(requesterId, requesterInstance);
+            });
         });
     }
 }
